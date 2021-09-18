@@ -1,6 +1,5 @@
 import {
     CATEGORY_FETCH_START,
-    SET_SELECTED_CATEGORY,
     CATEGORY_FETCH_SUCCESS,
     CATEGORY_FETCH_FAIL,
 } from './constants';
@@ -30,11 +29,6 @@ const sidebarLayoutReducer = (state: ReducerState = initialState, action: any): 
                 ...state,
                 categoryArray: [],
                 isLoading: true,
-            };
-        case SET_SELECTED_CATEGORY:
-            return {
-                ...state,
-                selectedCategoryId: action.selectedCategoryId,
             };
         case CATEGORY_FETCH_SUCCESS:
             return {

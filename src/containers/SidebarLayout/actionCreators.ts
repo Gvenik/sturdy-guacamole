@@ -1,7 +1,6 @@
 import {
     CATEGORY_FETCH_SUCCESS,
     CATEGORY_FETCH_FAIL,
-    SET_SELECTED_CATEGORY,
     CATEGORY_FETCH_START,
     V1_CATEGORIES_URL,
 } from './constants';
@@ -25,13 +24,6 @@ const actions = {
     categoryFetchFail: () => {
         return {
             type: CATEGORY_FETCH_FAIL,
-        };
-    },
-
-    setSelectedCategory: (selectedCategoryId: number) => {
-        return {
-            type: SET_SELECTED_CATEGORY,
-            selectedCategoryId,
         };
     },
 };
@@ -59,8 +51,4 @@ export const categoryFetchFailCreator = () => (dispatch: any) => {
     setTimeout(() => {
         dispatch(categoryFetchStartCreator());
     }, 5000);
-};
-
-export const setSelectedCategoryCreator = (selectedCategoryId: number) => (dispatch: any) => {
-    dispatch(actions.setSelectedCategory(selectedCategoryId));
 };

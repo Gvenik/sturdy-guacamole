@@ -5,6 +5,7 @@ import { History, LocationState } from 'history';
 import { RootState } from '../../redux/store';
 import { categoryFetchStartCreator } from './actionCreators';
 import { CatType } from "./reducer";
+import { SidebarStyle, SidebarWrapperStyle, ContentStyle, SidebarItem } from './styles';
 
 interface Props {
     children?: JSX.Element,
@@ -15,7 +16,6 @@ const SidebarLayout: React.FC<Props> = ({ history, children }) => {
 
     const isLoading = useSelector<RootState, boolean>(state => state.sidebarLayoutReducer.isLoading);
     const categoryArray = useSelector<RootState, CatType[]>(state => state.sidebarLayoutReducer.categoryArray);
-    const selectedCategoryId = useSelector<RootState, number>(state => state.sidebarLayoutReducer.selectedCategoryId);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,14 +24,17 @@ const SidebarLayout: React.FC<Props> = ({ history, children }) => {
 
     const getCategories = () => categoryArray.map((category: CatType) => {
         const { id, name } = category;
-        return <div key={id} onClick={() => history.push(`/${name}`, { categoryId: id })}>{name}</div>
+        return <SidebarItem key={id} onClick={() => history.push(`/${id}`)}>{name}</SidebarItem>
     })
 
-    return <div>
-        {console.log(selectedCategoryId)!}
-        {getCategories()}
-        {children}
-    </div>
+    return <SidebarWrapperStyle>
+        <SidebarStyle>
+            {isLoading ? <span>loading...</span> : getCategories()}
+        </SidebarStyle>
+        <ContentStyle>
+            {children}
+        </ContentStyle>
+    </SidebarWrapperStyle>
 }
 
 export default SidebarLayout;
